@@ -7,7 +7,7 @@ describe('TripService', () => {
     it('throws error when used not logged in', () => {
         const tripService = new TripService()
         tripService.currentUser = jest.fn(()=> null)
-        expect(() => tripService.getTripsByUser(null))
+        expect(() => tripService.getTripsFor(null))
           .toThrowError("User not logged in.")
     });
 
@@ -16,7 +16,7 @@ describe('TripService', () => {
         const tripService = new TripService()
         tripService.currentUser = jest.fn(()=> LOGGED_USER)
         const user = { getFriends: () => [] }
-        expect(tripService.getTripsByUser(user)).toEqual([])
+        expect(tripService.getTripsFor(user)).toEqual([])
     });
 
     it('returns an empty list when user and loggedUser are no friends ', () => {
@@ -24,7 +24,7 @@ describe('TripService', () => {
         const tripService = new TripService()
         tripService.currentUser = jest.fn(()=> LOGGED_USER)
         const user = { getFriends: () => ['firend1', 'friend2'] }
-        expect(tripService.getTripsByUser(user)).toEqual([])
+        expect(tripService.getTripsFor(user)).toEqual([])
     });
 
     it('returns user trips when user and loggedUser are friends ', () => {
@@ -33,7 +33,7 @@ describe('TripService', () => {
         tripService.currentUser = jest.fn(()=> LOGGED_USER)
         const user = { getFriends: () => [LOGGED_USER] }
         const TRIPS= ['a trip']
-        tripService.findFriendTripsFor = jest.fn(()=> TRIPS)
-        expect(tripService.getTripsByUser(user)).toEqual(TRIPS)
+        tripService.findTripsFor = jest.fn(()=> TRIPS)
+        expect(tripService.getTripsFor(user)).toEqual(TRIPS)
     });
 });
