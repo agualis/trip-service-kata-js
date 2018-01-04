@@ -6,7 +6,7 @@ let TripDAO = require('./TripDAO');
 class TripService {
     getTripsByUser(user) {
         let tripList = [];
-        let loggedUser = this.currentUser();
+        this.loggedUser = this.currentUser();
         let isFriend = false;
         if (this.loggedUser != null) {
             let friends = user.getFriends();

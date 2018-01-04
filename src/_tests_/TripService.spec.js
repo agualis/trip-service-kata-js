@@ -11,14 +11,11 @@ describe('TripService', () => {
           .toThrowError("User not logged in.")
     });
 
-    xit('get user friends trip list', () => {
+    it('returns an empty list when user has no friends ', () => {
         const LOGGED_USER = 'any user'
-        const TRIP_DAO = {}
-        const TRIP_LIST = ['any trip']
-        const user = {}
-        user.getFriends = jest.fn(() => [LOGGED_USER])
-        TRIP_DAO.findTripsByUser = jest.fn(() => TRIP_LIST)
-        const tripService = new TripService(LOGGED_USER, TRIP_DAO)
-        expect(tripService.getTripsByUser(user)).toBe(TRIP_LIST)
+        const tripService = new TripService()
+        tripService.currentUser = jest.fn(()=> LOGGED_USER)
+        const user = { getFriends: () => [] }
+        expect(tripService.getTripsByUser(user)).toEqual([])
     });
 });
