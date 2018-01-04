@@ -1,5 +1,4 @@
-"use strict";
-
+import { User } from '../User'
 let TripService = require('../TripService');
 
 describe('TripService', () => {
@@ -15,24 +14,26 @@ describe('TripService', () => {
 
     let tripService
     let loggedUser
+    let user
     beforeEach(()=> {
-        tripService = new TripService()
+      user = new User()
+      tripService = new TripService()
         loggedUser = 'any user'
         tripService.currentUser = jest.fn(()=> loggedUser)
     })
 
     it('returns an empty list when user has no friends ', () => {
-        const user = { getFriends: () => [] }
+        user.getFriends = () => []
         expect(tripService.getTripsFor(user)).toEqual([])
     });
 
     it('returns an empty list when user and loggedUser are no friends ', () => {
-        const user = { getFriends: () => ['friend1', 'friend2'] }
+        user.getFriends = () => ['friend1', 'friend2']
         expect(tripService.getTripsFor(user)).toEqual([])
     });
 
     it('returns user trips when user and loggedUser are friends ', () => {
-        const user = { getFriends: () => [loggedUser] }
+        user.getFriends = () => [loggedUser]
         const trips = ['a trip']
         tripService.findTripsFor = jest.fn(()=> trips)
         expect(tripService.getTripsFor(user)).toEqual(trips)
