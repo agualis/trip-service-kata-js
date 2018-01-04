@@ -32,9 +32,10 @@
     ]
   },
   "devDependencies": {
+    "babel-jest": "^22.0.4",
     "babel-preset-env": "^1.6.1",
     "istanbul": "^0.4.5",
-    "jest": "^2.3.4",
+    "jest": "^22.0.4",
     "sinon": "^1.17.2"
   }
 }
