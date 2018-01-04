@@ -32,6 +32,8 @@ describe('TripService', () => {
         const tripService = new TripService()
         tripService.currentUser = jest.fn(()=> LOGGED_USER)
         const user = { getFriends: () => [LOGGED_USER] }
-        expect(tripService.getTripsByUser(user)).toEqual([])
+        const TRIPS= ['a trip']
+        tripService.findFriendTripsFor = jest.fn(()=> TRIPS)
+        expect(tripService.getTripsByUser(user)).toEqual(TRIPS)
     });
 });
