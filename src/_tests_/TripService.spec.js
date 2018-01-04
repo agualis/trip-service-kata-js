@@ -6,6 +6,7 @@ describe('TripService', () => {
 
     it('throws error when used not logged in', () => {
         const tripService = new TripService()
+        tripService.currentUser = jest.fn(()=> null)
         expect(() => tripService.getTripsByUser(null))
           .toThrowError("User not logged in.")
     });

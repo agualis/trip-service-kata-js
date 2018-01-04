@@ -6,7 +6,7 @@ let TripDAO = require('./TripDAO');
 class TripService {
     getTripsByUser(user) {
         let tripList = [];
-        let loggedUser = UserSession.getLoggedUser();
+        let loggedUser = this.currentUser();
         let isFriend = false;
         if (this.loggedUser != null) {
             let friends = user.getFriends();
@@ -25,6 +25,10 @@ class TripService {
             throw new Error('User not logged in.');
         }
     }
+
+  currentUser() {
+    return UserSession.getLoggedUser()
+  }
 }
 
 module.exports = TripService
