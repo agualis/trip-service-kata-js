@@ -5,10 +5,12 @@ let TripService = require('../TripService');
 describe('TripService', () => {
 
     it('throws error when used not logged in', () => {
+        const GUEST = null
+        const NOT_USED_USER = null
         const tripService = new TripService()
-        tripService.currentUser = jest.fn(()=> null)
-        expect(() => tripService.getTripsFor(null))
-          .toThrowError("User not logged in.")
+        tripService.currentUser = jest.fn(()=> GUEST)
+        expect(() => tripService.getTripsFor(NOT_USED_USER))
+        .toThrowError("User not logged in.")
     });
 
     it('returns an empty list when user has no friends ', () => {
