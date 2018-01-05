@@ -23,17 +23,17 @@ describe('TripService', () => {
     })
 
     it('returns an empty list when user has no friends ', () => {
-        user.getFriends = () => []
+        user.friends = []
         expect(tripService.getTripsFor(user)).toEqual([])
     });
 
     it('returns an empty list when user and loggedUser are no friends ', () => {
-        user.getFriends = () => ['friend1', 'friend2']
+        user.friends = ['friend1', 'friend2']
         expect(tripService.getTripsFor(user)).toEqual([])
     });
 
     it('returns user trips when user and loggedUser are friends ', () => {
-        user.getFriends = () => [loggedUser]
+        user.friends = [loggedUser, 'another friend']
         const trips = ['a trip']
         tripService.findTripsFor = jest.fn(()=> trips)
         expect(tripService.getTripsFor(user)).toEqual(trips)
