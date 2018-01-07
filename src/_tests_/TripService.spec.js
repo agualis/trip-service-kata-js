@@ -6,7 +6,7 @@ describe('TripService', () => {
     it('throws error when used not logged in', () => {
         const GUEST = null
         const NOT_USED_USER = null
-        const tripService = new TripService()
+        const tripService = new TripService('any tripDao')
         expect(() => tripService.getTripsFor(NOT_USED_USER, GUEST))
         .toThrowError("User not logged in.")
     });
@@ -14,9 +14,10 @@ describe('TripService', () => {
     let tripService
     let loggedInUser = 'any user'
     let user
+    let tripDAO = {}
     beforeEach(()=> {
         user = new User()
-        tripService = new TripService()
+        tripService = new TripService(tripDAO)
     })
 
     it('returns an empty list when user has no friends ', () => {
@@ -32,7 +33,7 @@ describe('TripService', () => {
     it('returns user trips when user and loggedInUser are friends ', () => {
         user.friends = [loggedInUser, 'another friend']
         const trips = ['a trip']
-        tripService.findTripsFor = jest.fn(()=> trips)
+        tripDAO.findTripsByUser = jest.fn(()=> trips)
         expect(tripService.getTripsFor(user, loggedInUser)).toEqual(trips)
     });
 });
