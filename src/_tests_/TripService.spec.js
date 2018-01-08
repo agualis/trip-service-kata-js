@@ -33,7 +33,7 @@ describe('TripService', () => {
     it('returns user trips when user and loggedInUser are friends ', () => {
         user.friends = [loggedInUser, 'another friend']
         const trips = ['a trip']
-        tripDAO.findTripsByUser = jest.fn(()=> trips)
+        tripDAO.findTripsByUser = () => trips
         expect(tripService.getTripsFor(user, loggedInUser)).toEqual(trips)
     });
 });
